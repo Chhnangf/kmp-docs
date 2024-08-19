@@ -5,4 +5,29 @@
          <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
+    <url>
+         <loc>https://mydomain.org/mysite/about/</loc>
+         <lastmod>2024-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mydomain.org/mysite/usage/</loc>
+         <lastmod>2024-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mydomain.org/mysite/blog/</loc>
+         <lastmod>2024-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mydomain.org/mysite/blog/2023/12/31/happy-new-years-eve/</loc>
+         <lastmod>2024-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mydomain.org/mysite/blog/archive/2023/</loc>
+         <lastmod>2024-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
 </urlset>
