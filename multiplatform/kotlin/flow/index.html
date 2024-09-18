@@ -69,6 +69,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -223,16 +228,17 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../../../blog/" class="md-tabs__link">
-        
-  
     
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/" class="md-tabs__link">
+          
   
   Blog
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -507,6 +513,19 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Flow
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -517,6 +536,79 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      UI发起请求并监听状态变化做出不同操作
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      网络请求状态
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      网络请求响应体
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#viewmodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      ViewModel订阅数据并发起请求
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储层接收网络请求处理并返回
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apihttp" class="md-nav__link">
+    <span class="md-ellipsis">
+      api处理实际请求并返回http状态码
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -684,19 +776,41 @@
   
   
   
+  
     
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../blog/" class="md-nav__link">
+    
+    
+      
+      
         
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../blog/" class="md-nav__link">
+      
   
   <span class="md-ellipsis">
     Blog
   </span>
   
 
-      </a>
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
     </li>
   
 
@@ -820,9 +934,218 @@
                   
 
 
-  <h1>Flow</h1>
+<h1 id="_1">响应式网络通信状态管理流程</h1>
+<p>这个流程展示了如何使用协程、Flow 和 Resource 类来监控和管理网络通信的状态。</p>
+<ol>
+<li>UI发起请求并监听状态变化做出不同操作 </li>
+<li>ViewModel订阅数据并发起请求</li>
+<li>Repository处理请求并返回封装的响应状</li>
+<li>api处理实际请求并返回http状态码</li>
+</ol>
+<h2 id="ui">UI发起请求并监听状态变化做出不同操作</h2>
+<div class="highlight"><span class="filename">Login.kt</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">loginModel</span><span class="p">:</span><span class="w"> </span><span class="n">LoginViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getScreenModel</span><span class="p">()</span>
+
+<span class="n">Button</span><span class="p">(</span>
+<span class="w">    </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">scope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">loginModel</span><span class="p">.</span><span class="na">getUserLogin</span><span class="p">(</span><span class="n">username</span><span class="p">.</span><span class="na">value</span><span class="p">,</span><span class="n">password</span><span class="p">.</span><span class="na">value</span><span class="p">)}</span><span class="w">      </span>
+<span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loginModel</span><span class="p">.</span><span class="na">state</span><span class="p">.</span><span class="na">value</span>
+
+<span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">key1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">navigator</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">MuseumPaging</span><span class="p">())</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="m">202</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">key1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">navigator</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">SignUp</span><span class="p">())</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_2">网络请求状态</h2>
+<p>Resource 类是用来封装网络请求的不同状态的，包括成功、错误和加载中状态</p>
+<div class="highlight"><span class="filename">Resource.kt</span><pre><span></span><code><span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Resource</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">data</span><span class="p">:</span><span class="w"> </span><span class="n">T? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">message</span><span class="p">:</span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">Success</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Resource</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">Error</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">:</span><span class="n">T? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Resource</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">Loading</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">:</span><span class="n">T?=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Resource</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">Internet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">:</span><span class="n">T? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Resource</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>
+<p>Success：请求成功，包含请求返回的数据。</p>
+</li>
+<li>
+<p>Error：请求失败，包含错误信息。</p>
+</li>
+<li>
+<p>Loading：请求正在进行中。</p>
+</li>
+<li>
+<p>Internet：网络错误。</p>
+</li>
+</ul>
+<h2 id="_3">网络请求响应体</h2>
+<p>ResponseData 类用于表示 API 响应的数据结构</p>
+<div class="highlight"><span class="filename">ResponseData.kt</span><pre><span></span><code><span class="nd">@Serializable</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">ResponseData</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="nd">@SerialName</span><span class="p">(</span><span class="s">&quot;status&quot;</span><span class="p">)</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">status</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="nd">@SerialName</span><span class="p">(</span><span class="s">&quot;quota&quot;</span><span class="p">)</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">quota</span><span class="p">:</span><span class="w"> </span><span class="n">Quota?,</span>
+<span class="w">    </span><span class="nd">@SerialName</span><span class="p">(</span><span class="s">&quot;error&quot;</span><span class="p">)</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="p">:</span><span class="w"> </span><span class="n">CodableException?,</span>
+<span class="w">    </span><span class="nd">@SerialName</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">)</span><span class="w"> </span><span class="nd">@Serializable</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">main</span><span class="p">:</span><span class="w"> </span><span class="n">T</span>
+<span class="p">)</span>
+
+<span class="nd">@Serializable</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">TokenObject</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
+
+<span class="nd">@Serializable</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Quota</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">times</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>
+<p>status: 一个整数，通常用于表示 HTTP 状态码或操作的状态。例如，200 表示成功，4XX 表示客户端错误，5XX 表示服务器错误。</p>
+</li>
+<li>
+<p>quota: Quota 类型的对象，可能为 null。这个字段用于表示剩余的请求配额。</p>
+</li>
+<li>
+<p>error: CodableException 类型的对象，可能为 null。如果响应包含错误信息，这个字段将包含错误详情。</p>
+</li>
+<li>
+<p>main: 泛型字段 T，使用 @Serializable 注解。这个字段用于存储主要的响应数据，可以是任何类型的数据。</p>
+</li>
+</ul>
+<h2 id="viewmodel">ViewModel订阅数据并发起请求</h2>
+<div class="highlight"><span class="filename">ViewModel.kt</span><pre><span></span><code><span class="c1">// 使用StateFlow 来存储状态暴露给UI</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="n">LoginState</span><span class="o">&lt;</span><span class="n">TokenObject</span><span class="o">&gt;</span><span class="p">())</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="p">:</span><span class="w"> </span><span class="n">State</span><span class="o">&lt;</span><span class="n">LoginState</span><span class="o">&lt;</span><span class="n">TokenObject</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_state</span>
+
+<span class="c1">// 声明状态类，用于存储viewmodel的状态暴露给ui</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">LoginState</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">isLoading</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">success</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">loginList</span><span class="p">:</span><span class="w"> </span><span class="n">ResponseData</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="c1">//List&lt;LoginModel.LoginJSON&gt; = emptyList(),</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CodableException? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">internet</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">)</span>
+
+<span class="c1">// 发起请求</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">flow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">postRepository</span><span class="p">.</span><span class="na">getUserLogin</span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">)</span>
+
+<span class="c1">// 订阅数据</span>
+<span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">flow</span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;LoginViewModel -&gt; getUserLogin -&gt; getUserLogin.collect: </span><span class="si">$</span><span class="n">result</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// 打印结果</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Resource</span><span class="p">.</span><span class="na">Loading</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;LoginViewModel -&gt; collect: Loading&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoginState</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">internet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Resource</span><span class="p">.</span><span class="na">Error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;LoginViewModel -&gt; collect: Error </span><span class="si">${</span><span class="n">result</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoginState</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">internet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">data</span><span class="o">?.</span><span class="na">error</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Resource</span><span class="p">.</span><span class="na">Internet</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;LoginViewModel -&gt; collect: Error </span><span class="si">${</span><span class="n">result</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">delay</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+<span class="w">                </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoginState</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">internet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Resource</span><span class="p">.</span><span class="na">Success</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;LoginViewModel -&gt; collect: Success </span><span class="si">${</span><span class="n">result</span><span class="p">.</span><span class="na">data</span><span class="o">?.</span><span class="na">status</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">data</span><span class="o">?.</span><span class="na">status</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoginState</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">internet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">data</span><span class="p">.</span><span class="na">error</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
 
 
+
+<span class="w">                    </span><span class="m">203</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">                </span><span class="p">}</span>
+
+
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Exception caught: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="o">?.</span><span class="na">let</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">LoginState</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CodableException</span><span class="p">(</span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="nb">it</span><span class="p">))</span><span class="w"> </span><span class="p">}</span><span class="o">!!</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_4">存储层接收网络请求处理并返回</h2>
+<div class="highlight"><span class="filename">Repository.kt</span><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">getUserLogin</span><span class="p">(</span><span class="n">email</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="kt">String</span><span class="p">):</span><span class="n">Flow</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&lt;</span><span class="n">ResponseData</span><span class="o">&lt;</span><span class="n">TokenObject?&gt;</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">emit</span><span class="p">(</span><span class="n">Resource</span><span class="p">.</span><span class="na">Loading</span><span class="p">())</span>
+
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">postApi</span><span class="p">.</span><span class="na">userLogin</span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">coroutineScope</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">            </span><span class="n">emit</span><span class="p">(</span><span class="n">Resource</span><span class="p">.</span><span class="na">Success</span><span class="p">((</span><span class="n">process</span><span class="p">)))</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;PostRepository -&gt; getUserLogin: Success&quot;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">HttpException</span><span class="p">){</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;PostRepository -&gt; getUserLogin: e: HttpException&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">emit</span><span class="p">(</span><span class="n">Resource</span><span class="p">.</span><span class="na">Error</span><span class="p">(</span><span class="s">&quot;e: HttpException&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">IOException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;PostRepository -&gt; getUserLogin: e: IOException&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">// TODO网络链接测试</span>
+<span class="w">        </span><span class="n">emit</span><span class="p">(</span><span class="n">Resource</span><span class="p">.</span><span class="na">Internet</span><span class="p">(</span><span class="s">&quot;e: IOException&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>网络请求处理中使用协程和flow时，emit发送数据到下游。在代码中使用emit发送Resource.Loading() 的目的是通知下游（比如 UI 层）当前操作已经开始，并且正在加载数据。</p>
+<p>Flow 是响应式的，这意味着它可以发送多个数据项，而不像 LiveData 那样只能发送一个数据项。Flow 可以持续地发送更新，这在处理数据流时非常有用，比如在数据发生变化时实时更新 UI。</p>
+<ol>
+<li>emit(Resource.Loading())：这是在开始执行登录操作之前发送的，用来告诉 UI 显示加载指示器。</li>
+<li>emit(Resource.Success((process)))：这是在登录操作成功之后发送的，用来传递成功的结果。</li>
+</ol>
+</div>
+<h2 id="apihttp">api处理实际请求并返回http状态码</h2>
+<div class="highlight"><span class="filename">ApiService.kt</span><pre><span></span><code><span class="c1">// setBody需要一个T对象，所以需要声明一个类来处理要发送的数据</span>
+<span class="nd">@Serializable</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">AccountLoginEmailStruct</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">email</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">password</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
+
+<span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">userLogin</span><span class="p">(</span><span class="n">email</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">ResponseData</span><span class="o">&lt;</span><span class="n">TokenObject?&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="p">:</span><span class="w"> </span><span class="n">HttpResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="na">post</span><span class="p">(</span><span class="n">lesterWorkLogin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">            </span><span class="n">contentType</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="na">Application</span><span class="p">.</span><span class="na">Json</span><span class="p">)</span>
+
+<span class="w">            </span><span class="n">setBody</span><span class="p">(</span><span class="n">AccountLoginEmailStruct</span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">))</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Post HTTP -&gt; userLogin response.bodyAsText: </span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">bodyAsText</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">body</span><span class="p">()</span>
+
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
 
 
 
