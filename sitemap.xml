@@ -11,11 +11,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/github/</loc>
-         <lastmod>2024-09-20</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://example.com/api/ktor/api-reference/</loc>
          <lastmod>2024-09-20</lastmod>
          <changefreq>daily</changefreq>
@@ -26,17 +21,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/blog/2024/09/12/cs%E9%A5%B0%E5%93%81%E4%BA%A4%E6%98%93%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E/</loc>
-         <lastmod>2024-09-20</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://example.com/blog/2024/09/10/battlefield-5-configuration/</loc>
          <lastmod>2024-09-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/blog/2024/08/21/newproject/</loc>
+         <loc>https://example.com/blog/2024/09/12/cs-market-%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E/</loc>
+         <lastmod>2024-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://example.com/blog/2024/09/20/github/</loc>
          <lastmod>2024-09-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -51,22 +46,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/blog/2024/08/20/configure-navigation-structure/</loc>
+         <loc>https://example.com/blog/2024/09/07/%E6%B7%B1%E5%9C%B3/</loc>
          <lastmod>2024-09-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/blog/2024/09/07/%E6%B7%B1%E5%9C%B3%E4%B8%80%E6%97%A5%E6%B8%B8/</loc>
-         <lastmod>2024-09-20</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://example.com/blog/2024/09/18/%E9%99%95%E8%A5%BF-%E8%A5%BF%E5%AE%89/</loc>
-         <lastmod>2024-09-20</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://example.com/docs/</loc>
+         <loc>https://example.com/blog/2024/09/18/%E8%A5%BF%E5%AE%89/</loc>
          <lastmod>2024-09-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -241,12 +226,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/posts/</loc>
+         <loc>https://example.com/blog/archive/2024/</loc>
          <lastmod>2024-09-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/blog/archive/2024/</loc>
+         <loc>https://example.com/blog/category/github/</loc>
          <lastmod>2024-09-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
