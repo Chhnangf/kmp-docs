@@ -1,17 +1,14 @@
-# Welcome to MkDocs
+# Home
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+{% extends "base.html" %}
 
-## Commands
+{% block announce %}
+  <!-- Add announcement here, including arbitrary HTML -->
+{% endblock %}
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+/// html | pre
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+    Pre blocks are _raw_.
+    Additional Markdown parsing is *avoided*.
+    Content should be indented.
+///

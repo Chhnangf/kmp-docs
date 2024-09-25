@@ -1,4 +1,174 @@
-site_name: My Docs
-site_url: https://mydomain.org/mysite
+site_name: Annal
+site_url: https://example.com
+
 theme:
-  name: material
+        name: material
+        custom_dir: overrides
+        favicon: assets/Legis logo vector.svg
+        logo: assets/Legis logo vector.svg
+        language: en
+        palette:
+                #primary: white
+                #accent: light green
+
+                # Palette toggle for light mode
+                - scheme: default
+                  primary: white
+                  accent: light green
+                  toggle:
+                          icon: material/weather-night
+                          name: Switch to dark mode
+
+                # Palette toggle for dark mode
+                - scheme: slate
+                  primary: black
+                  accent: indigo
+                  toggle:
+                          icon: material/weather-sunny
+                          name: Switch to light mode
+
+        features:
+                #- navigation.indexes             #章节索引
+                - navigation.instant
+                - navigation.instant.prefetch
+                - navigation.instant.progress
+                - navigation.tabs #导航栏显示在顶部
+                #- navigation.sections #导航分组显示
+                - navigation.tracking
+                - navigation.expand #默认展开小结
+                - navigation.path
+                - navigation.prune #仅显示可
+                - toc.follow
+                - toc.integrate #将目录集成在导航
+                - navigation.top
+                - navigation.footer
+
+                - search.suggest
+                - search.highlight
+                - search.share
+
+                - header.autohide
+                - announce.dismiss
+        icon:
+                #logo: material/library-outline
+
+                annotation: material/arrow-right-circle
+                previous: fontawesome/solid/angle-left
+                next: fontawesome/solid/angle-right
+        #font:
+        #code: Roboto Mono
+
+plugins:
+        - search
+        - blog:
+                  blog_toc: true
+                  archive_date_format: MMMM yyyy
+                  authors_file: "{blog}/.authors.yml"
+                  post_readtime: true
+
+                  categories_pagination_per_page: 5
+
+                  draft: true
+                  draft_on_serve: true
+                  draft_if_future_date: true
+                  # ...
+        - tags
+        - glightbox
+        - git-revision-date-localized
+
+nav:
+        - MkDocs:
+                  - Override: mkdocs/install/index.md
+                  - Install:
+                            - Local Environment: mkdocs/install/local.md
+                            - Publish to Github: mkdocs/install/github-pages.md
+                            - Publish to HTTP Server: mkdocs/install/http-server.md
+                  - Configuration:
+                            - Override: mkdocs/config/index.md
+                            - Mkdocs.yml: mkdocs/config/mkdocs.yml.md
+                  - Markdown:
+                            - Basics: mkdocs/markdown/syntax_basics.md
+                            - Extensions: mkdocs/markdown/syntax_extensions.md
+        - Kotlin:
+                  - Override: kotlin/index.md
+                  - Multiplatform:
+                            - Navigation: kotlin/multiplatform/navigation.md
+                            - Viewmodel: kotlin/multiplatform/viewmodel.md
+                            - Coroutines: kotlin/multiplatform/coroutines.md
+                            - Flow: kotlin/multiplatform/flow.md
+                            - Serialization: kotlin/multiplatform/serialization.md
+                            - Resources: kotlin/multiplatform/resources.md
+                            - Media: kotlin/multiplatform/media.md
+                            - Camera: kotlin/multiplatform/camera.md
+                            - Permissions: kotlin/multiplatform/permissions.md
+                  - Compose:
+                            - Compose: multiplatform/compose/compose.md
+                            - Navigation: multiplatform/compose/navigation_buttombar.md
+                            - Modifier: multiplatform/compose/modifier.md
+                            - Blur: multiplatform/compose/blur.md
+                            - Waterfall Flow: multiplatform/compose/waterfall-flow.md
+        - Blog:
+                  - blog/index.md
+        - Friends: friends.md
+
+extra:
+        social:
+                - icon: fontawesome/brands/mastodon
+                  link: https://fosstodon.org/@squidfunk
+
+        consent:
+                title: Cookie consent
+                description: >-
+                        We use cookies to recognize your repeated visits and preferences, as well
+                        as to measure the effectiveness of our documentation and whether users
+                        find what they're searching for. With your consent, you're helping us to
+                        make our documentation better.
+markdown_extensions:
+        - abbr
+        # Admonitions
+        - admonition
+        - pymdownx.details
+        - pymdownx.superfences
+        # Annotations
+        - attr_list
+        - md_in_html
+
+        # Content tabs
+        - pymdownx.tabbed:
+                  alternate_style: true
+        - toc:
+                  permalink: true # 书签
+                  title: On this page
+
+        - pymdownx.emoji:
+                  emoji_index: !!python/name:material.extensions.emoji.twemoji
+                  emoji_generator: !!python/name:material.extensions.emoji.to_svg
+                  options:
+                          custom_icons:
+                                  - overrides/.icons
+
+        # Diagrams
+        - pymdownx.superfences:
+                  custom_fences:
+                          - name: mermaid
+                            class: mermaid
+                            format:
+                                    !!python/name:pymdownx.superfences.fence_code_format # checkbox
+
+
+        - def_list
+        - pymdownx.tasklist:
+                  custom_checkbox: true
+
+        - pymdownx.arithmatex:
+                  generic: true
+
+extra_javascript:
+        - javascripts/mathjax.js
+        - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+        - javascripts/katex.js
+        - https://unpkg.com/katex@0/dist/katex.min.js
+        - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+
+extra_css:
+        - https://unpkg.com/katex@0/dist/katex.min.css
