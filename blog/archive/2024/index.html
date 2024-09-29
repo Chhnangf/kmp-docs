@@ -581,6 +581,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于python检测携程网机票价格变化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      花式测评
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ainboard" class="md-nav__link">
     <span class="md-ellipsis">
       ainboard
@@ -647,24 +665,6 @@
   <a href="#mousepad" class="md-nav__link">
     <span class="md-ellipsis">
       MousePad
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      存储芯片
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#expling" class="md-nav__link">
-    <span class="md-ellipsis">
-      Expling
     </span>
   </a>
   
@@ -771,6 +771,205 @@
       <header class="md-typeset">
         <h1 id="september-2024">September 2024<a class="headerlink" href="#september-2024" title="Permanent link">&para;</a></h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-09-29 00:00:00">September 29, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/python/" class="md-meta__link">Python</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="python"><a class="toclink" href="../../2024/09/29/%E5%9F%BA%E4%BA%8Epython%E6%A3%80%E6%B5%8B%E6%90%BA%E7%A8%8B%E7%BD%91%E6%9C%BA%E7%A5%A8%E4%BB%B7%E6%A0%BC%E5%8F%98%E5%8C%96/">基于python检测携程网机票价格变化</a></h2>
+<p>安装Python：访问Python官网下载并安装Python。
+安装pip：pip是Python的包管理工具，用于安装第三方库。通常Python安装时会自带pip。
+安装请求库：打开命令行（Windows中的CMD或PowerShell，macOS或Linux的Terminal），输入以下命令安装requests库，它用于发送HTTP请求：
+pip install requests</p>
+<p>安装BeautifulSoup库：用于解析HTML页面，输入以下命令安装：
+bash
+pip install beautifulsoup4</p>
+<div class="highlight"><span class="filename">airfare query</span><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.edge.service</span> <span class="kn">import</span> <span class="n">Service</span>
+<span class="kn">from</span> <span class="nn">webdriver_manager.microsoft</span> <span class="kn">import</span> <span class="n">EdgeChromiumDriverManager</span>
+<span class="kn">from</span> <span class="nn">plyer</span> <span class="kn">import</span> <span class="n">notification</span>
+
+
+<span class="c1"># 获取当前脚本的目录</span>
+<span class="n">script_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="n">log_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">script_dir</span><span class="p">,</span> <span class="s1">&#39;airfare_monitor.log&#39;</span><span class="p">)</span>
+
+<span class="c1"># 配置日志</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">log_file_path</span><span class="p">,</span>  <span class="c1"># 使用完整的日志文件路径</span>
+    <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span>  <span class="c1"># 追加模式</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>  <span class="c1"># 指定日志文件的编码</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">init_driver</span><span class="p">():</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">EdgeChromiumDriverManager</span><span class="p">()</span><span class="o">.</span><span class="n">install</span><span class="p">())</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">EdgeOptions</span><span class="p">()</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">use_chromium</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--headless&quot;</span><span class="p">)</span>  <span class="c1"># 无头模式</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Edge</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">driver</span>
+
+<span class="k">def</span> <span class="nf">get_price</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+            <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="s1">&#39;head-prices&#39;</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">price_info</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="s1">&#39;head-prices&#39;</span><span class="p">)</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">price_info</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="n">price_info</span> <span class="k">else</span> <span class="s1">&#39;未找到&#39;</span>
+        <span class="k">return</span> <span class="n">price</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while getting price: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="n">init_driver</span><span class="p">()</span>
+
+    <span class="c1"># 定义多个日期组合</span>
+    <span class="n">date_combinations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;2024-09-30&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-04&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;2024-10-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-05&#39;</span><span class="p">),</span>
+        <span class="c1"># 在此添加更多的日期组合</span>
+    <span class="p">]</span>
+    <span class="c1"># 用于存储每个日期组合的最后价格</span>
+    <span class="n">last_prices</span> <span class="o">=</span> <span class="p">{}</span> 
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">departure_date</span><span class="p">,</span> <span class="n">return_date</span> <span class="ow">in</span> <span class="n">date_combinations</span><span class="p">:</span>
+            <span class="n">date_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.ly.com/flights/itinerary/roundtrip/ZUH-SIA?date=</span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s1">&amp;from=%E7%8F%A0%E6%B5%B7&amp;to=%E8%A5%BF%E5%AE%89&amp;refid=2000118609&amp;fromairport=&amp;toairport=&amp;childticket=0,0&amp;flightno=&#39;</span> 
+            <span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+            <span class="n">current_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">current_price</span> <span class="o">!=</span> <span class="s1">&#39;未找到&#39;</span><span class="p">:</span>
+                <span class="c1"># 存储当前价格</span>
+                <span class="n">last_prices</span><span class="p">[</span><span class="n">date_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">last_prices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">date_str</span><span class="p">,</span> <span class="n">current_price</span><span class="p">)</span>
+
+                <span class="c1"># 检查价格是否变化</span>
+                <span class="k">if</span> <span class="n">current_price</span> <span class="o">!=</span> <span class="n">last_prices</span><span class="p">[</span><span class="n">date_str</span><span class="p">]:</span>
+                    <span class="n">last_prices</span><span class="p">[</span><span class="n">date_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_price</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">current_time</span><span class="si">}</span><span class="s1">: Price changed to </span><span class="si">{</span><span class="n">current_price</span><span class="si">}</span><span class="s1"> for dates </span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                    <span class="n">notification</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span>
+                        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;票价提醒&#39;</span><span class="p">,</span>
+                        <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;票价有变化，当前票价：</span><span class="si">{</span><span class="n">current_price</span><span class="si">}</span><span class="s1">, 日期：</span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                        <span class="n">app_icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">current_time</span><span class="si">}</span><span class="s1">: Price unchanged </span><span class="si">{</span><span class="n">current_price</span><span class="si">}</span><span class="s1"> for dates </span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">current_time</span><span class="si">}</span><span class="s1">: Price not found for dates </span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>  <span class="c1"># 例如每5分钟检查一次</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">log_file</span><span class="p">:</span>
+            <span class="n">log_contents</span> <span class="o">=</span> <span class="n">log_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="c1">#print(&#39;Log contents:&#39;, log_contents)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://github.com/squidfunk.png" alt="Chhnang">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-09-26 00:00:00">September 26, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/product/" class="md-meta__link">Product</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+        
+      </ul>
+      
+        <span class="md-draft">
+          Draft
+        </span>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="_1"><a class="toclink" href="../../2024/09/26/%E8%8A%B1%E5%BC%8F%E6%B5%8B%E8%AF%84/">花式测评</a></h2>
+<div class="grid cards">
+<ul>
+<li>
+<h4 id="anandtech"><a class="toclink" href="../../2024/09/26/%E8%8A%B1%E5%BC%8F%E6%B5%8B%E8%AF%84/#anandtech"><strong><a href="https://www.anandtech.com/">AnandTech</a></strong>   ⭐️⭐️⭐️⭐️⭐️</a></h4>
+<p>【基本信息】AnandTech是一家成立于1997年的美国科技新闻和评测网站，以其深入的技术分析和详尽的评测报告而著称。AnandTech的CPU评测不仅包括性能测试，还包括功耗测试、温度测试、超频潜力分析以及价格与性能比分析。其评测报告通常非常详细，适合对CPU有一定了解的高级用户。</p>
+<p>AnandTech是以组建PC端的配件测评的网站，包括主板、CPU、GPU、SSD等配件测评，也包括笔记本、平板的产品测评，这些测评大多都是基于科技前言的产品。同时，这里也汇聚了全球各大数码发烧友，可以在此相互交流与分享。站内同样搜集了大量发烧友分享的科普文，阅读需要一定的基础知识功底。AnandTech的对比数据基于实际测试的评分得出，而非简单的数据罗列。用户既可以通过型号筛选需要对比的产品，也可以通过测试项来筛选同样的使用场景下，哪款产品的表现更好。</p>
+<p>由于AnandTech不支持中文，并且网站的内容较为“硬核”，对于不太懂硬件的用户来说门槛过高。此外，网站的对比工具入口隐藏较深，需要到页面底部找到“Bench”才能进入。</p>
+<p>【测评范围】笔记本、平板、主板、CPU、GPU、SSD等配件</p>
+</li>
+</ul>
+</div>
+<div class="grid cards">
+<ul>
+<li>
+<h4 id="dxomark"><a class="toclink" href="../../2024/09/26/%E8%8A%B1%E5%BC%8F%E6%B5%8B%E8%AF%84/#dxomark"><strong><a href="https://www.dxomark.cn/">DXOMARK</a></strong>  ⭐️⭐️⭐️</a></h4>
+<p>【介绍】</p>
+<p>DXOMARK是一家独立的法国科技公司，也是智能手机摄像头、屏幕、音频、电池以及其他消费电子产品（如相机和音箱等）质量评估的国际领导者。 10多年来，DXOMARK一直致力于通过制定行业标准，激励制造商创新和开发产品，进而提升终端用户的消费体验。</p>
+<p>DXOMARK不断推动技术进步，并相继开发了针对相机以外的基准测试和实验室（音频测评、屏幕显示和触控质量测评，以及电池测评），并在全球范围内出售了超过150个Analyzer图像质量评估实验室。DXOMARK测评的产品涵盖目前市场上售卖的主流智能手机机型、无线音箱、相机等。智能手机品牌像华为、小米、iPhone、三星、OV等大部分产品均有比较详实的测评，并通过测评给出相对应的评分，为选购提供参考。</p>
+<p>【测评范围】</p>
+<p>智能手机摄像头、屏幕、音频、电池以及其他消费电子产品（如相机和音箱等）</p>
+</li>
+</ul>
+</div>
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1295,115 +1494,6 @@
 <h4 id="_1"><a class="toclink" href="../../2024/09/24/mousepad/#_1">厂商</a></h4>
 <p><a href="https://wallhack.com/pages/museum">wallhack</a></p>
 <p>丹麦品质，定时限量款</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://github.com/squidfunk.png" alt="Chhnang">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2024-09-24 00:00:00">September 24, 2024</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/compulter/" class="md-meta__link">Compulter</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              1 min read
-            
-          </li>
-        
-      </ul>
-      
-        <span class="md-draft">
-          Draft
-        </span>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="_1"><a class="toclink" href="../../2024/09/24/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87httpswwwcnblogscomrijiyueleip17320772html/"><a href="https://www.cnblogs.com/rijiyuelei/p/17320772.html">存储芯片</a></a></h2>
-<h3 id="flash-memory"><a class="toclink" href="../../2024/09/24/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87httpswwwcnblogscomrijiyueleip17320772html/#flash-memory">Flash Memory</a></h3>
-<h3 id="3d-xpoint"><a class="toclink" href="../../2024/09/24/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87httpswwwcnblogscomrijiyueleip17320772html/#3d-xpoint">3D Xpoint</a></h3>
-<h3 id="flash-idssd"><a class="toclink" href="../../2024/09/24/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87httpswwwcnblogscomrijiyueleip17320772html/#flash-idssd">使用Flash ID查看SSD颗粒</a></h3>
-<p><a href="http://vlo.name:3000/ssdtool/">下载地址</a></p>
-<p>先需要知道自己的主控是什么，常见的是这些</p>
-<ul>
-<li>
-<p>Phison = 群联</p>
-</li>
-<li>
-<p>SMI = 慧荣</p>
-</li>
-<li>
-<p>Marvel = 美满电子（马牌主控）</p>
-</li>
-<li>
-<p>Maxio = 联芸</p>
-</li>
-<li>
-<p>Yeestor(SiliconGo) utility = 得一微</p>
-</li>
-</ul>
-<p>我一般的猜测顺序： 杂牌盘（移速、铨兴）先试 Yeestor，然后是 SMI ，Phison ，Marvel</p>
-<p>正规盘可以跳过 Yeestor 从SMI 开始</p>
-<h3 id="_2"><a class="toclink" href="../../2024/09/24/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87httpswwwcnblogscomrijiyueleip17320772html/#_2">名词解释</a></h3>
-<p>Flash type：颗粒类型</p>
-<p>关于 MLC / TLC /QLC 的区别强烈建议看硬件茶谈这个</p>
-<p><a href="https://www.bilibili.com/video/BV1aF411u7Ct/?spm_id_from=333.999.0.0">【硬件科普】固态硬盘的缓存是干什么的？有缓存和无缓存有什么区别？_哔哩哔哩_bilibili</a></p>
-<p><strong>Channel：通道</strong></p>
-<p>提到一个固态硬盘的通道数量，多数时候说的是闪存通道，但M.2 NVMe固态硬盘会有PCIE通道的参数。我们这里谈的是前者。</p>
-<p>闪存通道数量直接反映了固态硬盘的并发读写能力。可以简单理解为马路上有多少条车道，显然通道数量越多，理论性能越好。当然，还有很多影响因素，通道数量只是一个底子。</p>
-<p><strong>CE：片选信号</strong></p>
-<p>紧跟闪存通道之后的往往就是CE数量。经常可以在一些固态硬盘评测中看到这样的介绍，某某主控支持X通道，每通道支持Y CE。CE是Chip Enable片选的缩写，下图是一个东芝闪存颗粒的逻辑结构，2 Die封装，拥有两个CE信号。</p>
-<p>除了通道可以并行提升吞吐量之外，多CE交错也可以提高固态硬盘性能。主控的闪存通道以及每通道支持的CE数量还会影响它最终能够提供多大的固态硬盘容量。</p>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2024-09-23 00:00:00">September 23, 2024</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/tools/" class="md-meta__link">Tools</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              1 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="expling"><a class="toclink" href="../../2024/09/23/expling/">Expling</a></h2>
-<p>https://exping.world/maps/creation</p>
     
   </div>
 </article>

@@ -8,13 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://example.com/blog/2024/09/24/ainboard/">
+        <link rel="canonical" href="https://example.com/blog/2024/09/29/%E5%9F%BA%E4%BA%8Epython%E6%A3%80%E6%B5%8B%E6%90%BA%E7%A8%8B%E7%BD%91%E6%9C%BA%E7%A5%A8%E4%BB%B7%E6%A0%BC%E5%8F%98%E5%8C%96/">
       
       
-        <link rel="prev" href="../cpu/">
+        <link rel="prev" href="../../26/%E8%8A%B1%E5%BC%8F%E6%B5%8B%E8%AF%84/">
       
-      
-        <link rel="next" href="../../26/%E8%8A%B1%E5%BC%8F%E6%B5%8B%E8%AF%84/">
       
       
       <link rel="icon" href="../../../../../assets/Legis logo vector.svg">
@@ -22,7 +20,7 @@
     
     
       
-        <title>ainboard - Annal</title>
+        <title>基于python检测携程网机票价格变化 - Annal</title>
       
     
     
@@ -91,7 +89,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ainboard" class="md-skip">
+        <a href="#python" class="md-skip">
           Skip to content
         </a>
       
@@ -124,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ainboard
+              基于python检测携程网机票价格变化
             
           </span>
         </div>
@@ -622,25 +620,6 @@
               </div>
             </div>
             
-              <div class="md-post__authors md-typeset">
-                
-                  <div class="md-profile md-post__profile">
-                    <span class="md-author md-author--long">
-                      <img src="https://github.com/squidfunk.png" alt="Chhnang">
-                    </span>
-                    <span class="md-profile__description">
-                      <strong>
-                        
-                          Chhnang
-                        
-                      </strong>
-                      <br>
-                      Creator
-                    </span>
-                  </div>
-                
-              </div>
-            
             <ul class="md-post__meta md-nav__list">
               <li class="md-nav__item md-nav__item--section">
                 <div class="md-post__title">
@@ -653,7 +632,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
-                        <time datetime="2024-09-24 00:00:00" class="md-ellipsis">September 24, 2024</time>
+                        <time datetime="2024-09-29 00:00:00" class="md-ellipsis">September 29, 2024</time>
                       </div>
                     </li>
                     
@@ -664,7 +643,7 @@
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../../../category/compulter/">Compulter</a></span>
+                              <a href="../../../../category/python/">Python</a></span>
                         </div>
                       </li>
                     
@@ -675,7 +654,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
                           <span class="md-ellipsis">
                             
-                              1 min read
+                              2 min read
                             
                           </span>
                         </div>
@@ -698,23 +677,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#pcle" class="md-nav__link">
-    <span class="md-ellipsis">
-      PCle
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
           
         </div>
@@ -725,9 +687,109 @@
         
 
 
-<h1 id="ainboard">ainboard<a class="headerlink" href="#ainboard" title="Permanent link">&para;</a></h1>
-<h2 id="pcle">PCle<a class="headerlink" href="#pcle" title="Permanent link">&para;</a></h2>
-<p>PCIe 是 Peripheral Component Interconnect Express 的简写。PCIe是一种标准。它在2003年由PCI 特别兴趣小组 (PCI-SIG) 发布，并发布了第一个 PCIe 标准。</p>
+<h1 id="python">基于python检测携程网机票价格变化<a class="headerlink" href="#python" title="Permanent link">&para;</a></h1>
+<p>安装Python：访问Python官网下载并安装Python。
+安装pip：pip是Python的包管理工具，用于安装第三方库。通常Python安装时会自带pip。
+安装请求库：打开命令行（Windows中的CMD或PowerShell，macOS或Linux的Terminal），输入以下命令安装requests库，它用于发送HTTP请求：
+pip install requests</p>
+<p>安装BeautifulSoup库：用于解析HTML页面，输入以下命令安装：
+bash
+pip install beautifulsoup4</p>
+<div class="highlight"><span class="filename">airfare query</span><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.edge.service</span> <span class="kn">import</span> <span class="n">Service</span>
+<span class="kn">from</span> <span class="nn">webdriver_manager.microsoft</span> <span class="kn">import</span> <span class="n">EdgeChromiumDriverManager</span>
+<span class="kn">from</span> <span class="nn">plyer</span> <span class="kn">import</span> <span class="n">notification</span>
+
+
+<span class="c1"># 获取当前脚本的目录</span>
+<span class="n">script_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="n">log_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">script_dir</span><span class="p">,</span> <span class="s1">&#39;airfare_monitor.log&#39;</span><span class="p">)</span>
+
+<span class="c1"># 配置日志</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">log_file_path</span><span class="p">,</span>  <span class="c1"># 使用完整的日志文件路径</span>
+    <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span>  <span class="c1"># 追加模式</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>  <span class="c1"># 指定日志文件的编码</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">init_driver</span><span class="p">():</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">EdgeChromiumDriverManager</span><span class="p">()</span><span class="o">.</span><span class="n">install</span><span class="p">())</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">EdgeOptions</span><span class="p">()</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">use_chromium</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--headless&quot;</span><span class="p">)</span>  <span class="c1"># 无头模式</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Edge</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">service</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">driver</span>
+
+<span class="k">def</span> <span class="nf">get_price</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+            <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="s1">&#39;head-prices&#39;</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">price_info</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="s1">&#39;head-prices&#39;</span><span class="p">)</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">price_info</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="n">price_info</span> <span class="k">else</span> <span class="s1">&#39;未找到&#39;</span>
+        <span class="k">return</span> <span class="n">price</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while getting price: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="n">init_driver</span><span class="p">()</span>
+
+    <span class="c1"># 定义多个日期组合</span>
+    <span class="n">date_combinations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;2024-09-30&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-04&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;2024-10-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-05&#39;</span><span class="p">),</span>
+        <span class="c1"># 在此添加更多的日期组合</span>
+    <span class="p">]</span>
+    <span class="c1"># 用于存储每个日期组合的最后价格</span>
+    <span class="n">last_prices</span> <span class="o">=</span> <span class="p">{}</span> 
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">departure_date</span><span class="p">,</span> <span class="n">return_date</span> <span class="ow">in</span> <span class="n">date_combinations</span><span class="p">:</span>
+            <span class="n">date_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.ly.com/flights/itinerary/roundtrip/ZUH-SIA?date=</span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s1">&amp;from=%E7%8F%A0%E6%B5%B7&amp;to=%E8%A5%BF%E5%AE%89&amp;refid=2000118609&amp;fromairport=&amp;toairport=&amp;childticket=0,0&amp;flightno=&#39;</span> 
+            <span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+            <span class="n">current_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">current_price</span> <span class="o">!=</span> <span class="s1">&#39;未找到&#39;</span><span class="p">:</span>
+                <span class="c1"># 存储当前价格</span>
+                <span class="n">last_prices</span><span class="p">[</span><span class="n">date_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">last_prices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">date_str</span><span class="p">,</span> <span class="n">current_price</span><span class="p">)</span>
+
+                <span class="c1"># 检查价格是否变化</span>
+                <span class="k">if</span> <span class="n">current_price</span> <span class="o">!=</span> <span class="n">last_prices</span><span class="p">[</span><span class="n">date_str</span><span class="p">]:</span>
+                    <span class="n">last_prices</span><span class="p">[</span><span class="n">date_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_price</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">current_time</span><span class="si">}</span><span class="s1">: Price changed to </span><span class="si">{</span><span class="n">current_price</span><span class="si">}</span><span class="s1"> for dates </span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                    <span class="n">notification</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span>
+                        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;票价提醒&#39;</span><span class="p">,</span>
+                        <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;票价有变化，当前票价：</span><span class="si">{</span><span class="n">current_price</span><span class="si">}</span><span class="s1">, 日期：</span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                        <span class="n">app_icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">current_time</span><span class="si">}</span><span class="s1">: Price unchanged </span><span class="si">{</span><span class="n">current_price</span><span class="si">}</span><span class="s1"> for dates </span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">current_time</span><span class="si">}</span><span class="s1">: Price not found for dates </span><span class="si">{</span><span class="n">departure_date</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">return_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>  <span class="c1"># 例如每5分钟检查一次</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">log_file</span><span class="p">:</span>
+            <span class="n">log_contents</span> <span class="o">=</span> <span class="n">log_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="c1">#print(&#39;Log contents:&#39;, log_contents)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
 
 
 
@@ -748,7 +810,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 29, 2024</span>
   </span>
 
     
@@ -788,7 +850,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../cpu/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CPU">
+          <a href="../../26/%E8%8A%B1%E5%BC%8F%E6%B5%8B%E8%AF%84/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 花式测评">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
@@ -798,27 +860,11 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CPU
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../../26/%E8%8A%B1%E5%BC%8F%E6%B5%8B%E8%AF%84/" class="md-footer__link md-footer__link--next" aria-label="Next: 花式测评">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
                 花式测评
               </div>
             </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
-            </div>
           </a>
+        
         
       </nav>
     
